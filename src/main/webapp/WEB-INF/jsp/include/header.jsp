@@ -6,7 +6,7 @@
     	<h2 class="ml-3">Marondalgram</h2>
     	
     	<c:if test="${not empty userId }">
-    		<div class="mr-3">${userLoginId }님 <a href="/user/signout">로그아웃</a></div>
+    		<div class="mr-3">${userName }님 <a href="/user/signout">로그아웃</a></div>
     	</c:if>
     </header>
     <hr>

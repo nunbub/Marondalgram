@@ -61,7 +61,7 @@
 			var isDuplicateId = true;
 			
 			$("#loginIdInput").on("input", function() {
-				// 사용자가 아이디 인풋을 건드는 순가나
+				// 사용자가 아이디 인풋을 건드는 순간
 				// 중복체크 관련 모든 사항을 초기화 
 				isDuplicateCheck = false;
 				isDuplicateId = true;

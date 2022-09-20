@@ -27,12 +27,12 @@
 			
 				<!-- 입력 상자 -->
 				<div class="border rounded">
-					<textarea class="form-control border-0" rows="4"></textarea>
+					<textarea class="form-control border-0" rows="4" id="contentInput"></textarea>
 					
 					<div class="d-flex justify-content-between mt-3">
 						<a href="#" id="imageIcon" class="ml-3"> <i class="bi bi-image image-icon"></i> </a>
 						<input type="file" id="fileInput" class="d-none">
-						<button type="button" class="btn btn-primary">업로드</button>
+						<button type="button" class="btn btn-primary" id="uploadBtn">업로드</button>
 					</div>
 				
 				</div>
@@ -40,19 +40,20 @@
 				
 				<!-- 피드들 -->
 				<div class="mt-3">
-				
+					
+					<c:forEach var="post" items="${postList }" >
 					<!-- 카드 -->
 					
-						<div class="border rounded">
+						<div class="border rounded mt-3">
 							
 							<div class="d-flex justify-content-between p-2">
-								<div>김인규</div>
+								<div>${post }</div>
 								<i class="bi bi-three-dots"></i>
 							</div>
 							
 							<!-- 이미지 -->
 							<div>
-								<img class="w-100" src="https://media.istockphoto.com/photos/cup-of-coffee-on-green-background-top-view-copy-space-picture-id1323429553?b=1&k=20&m=1323429553&s=170667a&w=0&h=1ubEn7sx3ml6Dx8bZEBiqKi1AJLR6xNwLSEIpvffvdg=">
+								<img class="w-100" src="${post.imagePath }">
 							</div>
 							<!-- / 이미지 -->
 							
@@ -63,7 +64,7 @@
 							<!-- / 좋아요 -->
 							
 							<div class="p-2">
-								<b>김인규</b> 커피가 맛있네요 !
+								<b>${post.userId }</b> ${post.content }
 							</div>
 							
 							<!-- 댓글 -->
@@ -86,6 +87,7 @@
 						</div>
 					
 					<!-- / 카드 -->
+					</c:forEach>
 					
 				</div>
 				<!-- / 피드들 -->
@@ -100,6 +102,48 @@
 	
 	<script>
 		$(document).ready(function() {
+			
+			$("#uploadBtn").on("click", function() {
+				
+				let content = $("#contentInput").val();
+				
+				if(content == "") {
+					alert("내용을 입력하세요.");
+					return ;
+				}
+				
+				// 파일에 대한 유효성 검사
+				if($("#fileInput")[0].files.length == 0) {
+					alert("이미지를 선택해주세요.");
+					return ;
+				}
+				
+				let formData = new FormData();
+				formData.append("content", content);
+				formData.append("file", $("#fileInput")[0].files[0]);
+				
+				$.ajax({
+					type:"post"
+					, url:"/post/create"
+					, data:formData
+					, enctype:"multipart/form-data"
+					, processData:false
+					, contentType:false
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("업로드 실패");
+						}
+					}
+					, error:function() {
+						alert("업로드 에러");
+					}
+				});
+				
+			});
+			
+			
 			
 			$("#imageIcon").on("click", function() {
 				

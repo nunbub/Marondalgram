@@ -41,19 +41,19 @@
 				<!-- 피드들 -->
 				<div class="mt-3">
 					
-					<c:forEach var="post" items="${postList }" >
+					<c:forEach var="postDetail" items="${postList }" >
 					<!-- 카드 -->
 					
 						<div class="border rounded mt-3">
 							
 							<div class="d-flex justify-content-between p-2">
-								<div>${post }</div>
+								<div>${postDetail.user.name}</div>
 								<i class="bi bi-three-dots"></i>
 							</div>
 							
 							<!-- 이미지 -->
 							<div>
-								<img class="w-100" src="${post.imagePath }">
+								<img class="w-100" src="${postDetail.post.imagePath }">
 							</div>
 							<!-- / 이미지 -->
 							
@@ -64,7 +64,7 @@
 							<!-- / 좋아요 -->
 							
 							<div class="p-2">
-								<b>${post.userId }</b> ${post.content }
+								<b>${postDetail.user.name}</b> ${postDetail.post.content}
 							</div>
 							
 							<!-- 댓글 -->

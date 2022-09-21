@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.nunbub.marondalgram.post.bo.PostBO;
-import com.nunbub.marondalgram.post.model.Post;
+import com.nunbub.marondalgram.post.model.PostDetail;
 
 @Controller
 public class PostController {
@@ -19,7 +19,7 @@ public class PostController {
 	@GetMapping("/post/timeline/view")
 	public String timeline(Model model) {
 		
-		List<Post> postList = postBO.getPostList();
+		List<PostDetail> postList = postBO.getPostList();
 		
 		model.addAttribute("postList", postList);
 		

@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nunbub.marondalgram.common.FileManagerService;
+import com.nunbub.marondalgram.post.comment.bo.CommentBO;
+import com.nunbub.marondalgram.post.comment.model.Comment;
 import com.nunbub.marondalgram.post.dao.PostDAO;
+import com.nunbub.marondalgram.post.like.bo.LikeBO;
 import com.nunbub.marondalgram.post.model.Post;
 import com.nunbub.marondalgram.post.model.PostDetail;
 import com.nunbub.marondalgram.user.bo.UserBO;
@@ -22,6 +25,13 @@ public class PostBO {
 	
 	@Autowired
 	private UserBO userBO;
+	
+	@Autowired
+	private LikeBO likeBO;
+	
+	@Autowired
+	private CommentBO commentBO;
+	
 	// 게시글 정보를 전달 받아서 저장하는 기능
 	public int addPost(int userId, String content, MultipartFile file) {
 		
@@ -36,7 +46,7 @@ public class PostBO {
 		
 	}
 	
-	public List<PostDetail> getPostList() {
+	public List<PostDetail> getPostList(int loginUserId) {
 		
 		// 게시글 하나당 작성자 정보를 조합하는 과정
 		List<Post> postList = postDAO.selectPostList();
@@ -48,9 +58,16 @@ public class PostBO {
 			int userId = post.getUserId();
 			User user = userBO.getUserById(userId);
 			
+			int likeCount = likeBO.getLikeCount(post.getId());
+			boolean isLike = likeBO.isLike(loginUserId, post.getId());
+			List<Comment>commentList =  commentBO.getCommentList(post.getId());
+			
 			PostDetail postDetail = new PostDetail();
 			postDetail.setPost(post);
 			postDetail.setUser(user);
+			postDetail.setLikeCount(likeCount);
+			postDetail.setLike(isLike);
+			postDetail.setCommentList(commentList);
 			
 			postDetailList.add(postDetail);
 			

@@ -47,7 +47,7 @@
 						<div class="border rounded mt-3">
 							
 							<div class="d-flex justify-content-between p-2">
-								<div>${postDetail.user.name}</div>
+								<div><b>${postDetail.user.name}</b></div>
 								<i class="bi bi-three-dots"></i>
 							</div>
 							
@@ -59,7 +59,21 @@
 							
 							<!-- 좋아요 -->
 							<div class="p-2">
-								<a href="#" class="like-btn" data-post-id="${postDetail.post.id }"><i class="bi bi-heart"></i></a> 좋아요 10개
+							
+								<c:choose>
+									<%-- 로그인한 사용자가 좋아요한 게시물 --%>
+									<c:when test="${postDetail.like}">
+										<i class="bi bi-heart-fill text-danger"></i>
+									</c:when>
+									
+									<%-- 로그인한 사용자가 좋아요를 하지 않은 게시물 --%>
+									<c:otherwise>
+										<a href="#" class="like-btn" data-post-id="${postDetail.post.id }"><i class="bi bi-heart"></i></a>
+									</c:otherwise>
+								</c:choose>
+								
+								 좋아요 ${postDetail.likeCount }개
+								
 							</div>
 							<!-- / 좋아요 -->
 							
@@ -71,8 +85,11 @@
 							<div class="p-2">
 								<div class="small">댓글</div>
 								<hr>
-								<div><b>유재석</b> <small>저도 커피한잔 하고싶네요</small></div>
-								<div><b>바다</b> <small>여기 카페이름좀 알려주세요</small></div>
+								<!-- 댓글 리스트 -->
+								<c:forEach var="comment" items="${postDetail.commentList }">
+									<div><b>${}</b> <small>${comment.content }</small></div>
+								</c:forEach>
+								<!-- / 댓글 리스트 -->
 								
 								<!-- 댓글 입력 -->
 								<div class="d-flex mt-3">

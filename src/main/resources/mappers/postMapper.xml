@@ -39,5 +39,28 @@
   			`post`
   		ORDER BY `id` DESC;		
   	</select>
+  	
+  	<select id="selectPostByIdAndUserId" parameterType="map" resultType="com.nunbub.marondalgram.post.model.Post">
+  		SELECT
+  			`id`
+  			, `userId`
+  			, `content`
+  			, `imagePath`
+  			, `createdAt`
+  			, `updatedAt`
+  		FROM
+  			`post`
+  		WHERE
+  			`id` = #{id}
+  			AND `userId` = #{userId}	
+  	</select>
+  
+  	<delete id="deletePost" parameterType="int">
+  		DELETE FROM
+  			`post`
+  		WHERE
+  			`id` = #{postId}	
+  	
+  	</delete>
   
   </mapper>

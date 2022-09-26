@@ -38,7 +38,8 @@
 		FROM
 			`comment`
 		WHERE
-			`postId` = #{postId}		
+			`postId` = #{postId}	
+		ORDER BY `id` DESC;		
 	</select>
 
 </mapper>  

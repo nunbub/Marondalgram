@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nunbub.marondalgram.common.FileManagerService;
 import com.nunbub.marondalgram.post.comment.bo.CommentBO;
-import com.nunbub.marondalgram.post.comment.model.Comment;
+import com.nunbub.marondalgram.post.comment.model.CommentDetail;
 import com.nunbub.marondalgram.post.dao.PostDAO;
 import com.nunbub.marondalgram.post.like.bo.LikeBO;
 import com.nunbub.marondalgram.post.model.Post;
@@ -60,7 +60,8 @@ public class PostBO {
 			
 			int likeCount = likeBO.getLikeCount(post.getId());
 			boolean isLike = likeBO.isLike(loginUserId, post.getId());
-			List<Comment>commentList =  commentBO.getCommentList(post.getId());
+			
+			List<CommentDetail> commentList =  commentBO.getCommentList(post.getId());
 			
 			PostDetail postDetail = new PostDetail();
 			postDetail.setPost(post);

@@ -42,13 +42,14 @@
 				<div class="mt-3">
 					
 					<c:forEach var="postDetail" items="${postList }" >
-					<!-- 카드 -->
 					
+					<!-- 카드 -->					
 						<div class="border rounded mt-3">
 							
 							<div class="d-flex justify-content-between p-2">
 								<div><b>${postDetail.user.name}</b></div>
-								<i class="bi bi-three-dots"></i>
+								
+								<a href="#" data-toggle="modal" data-target="#moreModal"><i class="bi bi-three-dots"></i></a>
 							</div>
 							
 							<!-- 이미지 -->
@@ -86,8 +87,8 @@
 								<div class="small">댓글</div>
 								<hr>
 								<!-- 댓글 리스트 -->
-								<c:forEach var="comment" items="${postDetail.commentList }">
-									<div><b>${}</b> <small>${comment.content }</small></div>
+								<c:forEach var="commentDetail" items="${postDetail.commentList }">
+									<div><b>${commentDetail.user.name}</b> <small>${commentDetail.comment.content }</small></div>
 								</c:forEach>
 								<!-- / 댓글 리스트 -->
 								
@@ -101,9 +102,9 @@
 							</div>
 							<!-- / 댓글 -->
 							
-						</div>
-					
+						</div>					
 					<!-- / 카드 -->
+					
 					</c:forEach>
 					
 				</div>
@@ -116,6 +117,20 @@
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	
 	</div>
+	
+	<!-- 삭제하기 Modal -->
+	<div class="modal fade" id="moreModal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      
+	      <div class="modal-body text-center">
+	        <a href="">삭제하기</a>
+	      </div>
+	      
+	    </div>
+	  </div>
+	</div>
+	<!-- / 삭제하기 Modal -->
 	
 	<script>
 		$(document).ready(function() {
